@@ -1,0 +1,62 @@
+/*
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drinking Game</title>
+</head>
+<body>
+    <h1>Drinking Game</h1>
+    <div id="home">
+        <input id="name" placeholder="Enter your name" />
+        <button id="create">Create Lobby</button>
+        <input id="lobbyCode" placeholder="Enter lobby code" />
+        <button id="join">Join Lobby</button>
+    </div>
+    <div id="lobby" style="display:none;">
+        <h2>Lobby</h2>
+        <p id="lobbyCodeDisplay"></p>
+        <ul id="players"></ul>
+        <button id="startGame">Start Game</button>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        document.getElementById('create').addEventListener('click', async () => {
+            const name = document.getElementById('name').value;
+            const response = await fetch('/create-lobby', { method: 'POST' });
+            const { lobbyCode } = await response.json();
+            joinLobby(lobbyCode, name);
+        });
+
+        document.getElementById('join').addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const lobbyCode = document.getElementById('lobbyCode').value;
+            joinLobby(lobbyCode, name);
+        });
+
+        function joinLobby(lobbyCode, name) {
+            socket.emit('joinLobby', { lobbyCode, playerName: name });
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('lobby').style.display = 'block';
+            document.getElementById('lobbyCodeDisplay').textContent = `Lobby Code: ${lobbyCode}`;
+        }
+
+        socket.on('playerListUpdate', (players) => {
+            const playersList = document.getElementById('players');
+            playersList.innerHTML = '';
+            players.forEach((player) => {
+                const li = document.createElement('li');
+                li.textContent = player.name;
+                playersList.appendChild(li);
+            });
+        });
+
+        socket.on('error', (message) => {
+            alert(message);
+        });
+    </script>
+</body>
+</html>
+*/
